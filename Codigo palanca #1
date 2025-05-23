@@ -1,4 +1,4 @@
-a = 260;
+ a = 260;
 b = 430;
 angulos_plot = [];
 cy_plot = [];
