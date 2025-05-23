@@ -35,7 +35,7 @@ S_EC1 = solve(EC1,by);
 EC2= ax - bx == 0;
 S_EC2 = solve(EC2,ax);
 
-EC3= -by*(l2)*cosd(theta)-bx*(l2)*sind(theta) +F*l1*sind(theta)==0;
+EC3= -by*(l2)*sind(theta)-bx*(l2)*cosd(theta) +F*l1*sind(theta)==0;
 S_EC3 = vpa(solve(EC3,bx));
 
 
@@ -46,7 +46,7 @@ S_EC4 = vpa(solve(EC4,cy));
 EC5= b2x+cx==0;
 S_EC5 = vpa(solve(EC5,cx));
 
-EC6= cy*h*sind(phi)+cx*h*cosd(phi) ==0;
+EC6= cy*h*cosd(phi)+cx*h*sind(phi) ==0;
 S_EC6 = vpa(solve(EC6,cy));
 
 EC7 = S_EC1 == subs(S_EC6, cx, S_EC2);
