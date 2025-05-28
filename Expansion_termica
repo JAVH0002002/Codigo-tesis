@@ -1,0 +1,46 @@
+%% tubo 1
+alpha = 12e-6; 
+beta = 35e-6;
+R = 0.033;
+r = 0.028;
+h = 0.7;
+T = 250;
+t = 25;
+deltat = t:10:T; % Temperaturas iniciales de 25 a 250°C
+
+v = pi * h * (R^2 - r^2); % Volumen
+
+Expan = beta * v * (T - deltat); % Expansión para cada temperatura inicial
+
+% Mostrar resultados en tabla
+tabla = table(deltat', Expan', 'VariableNames', {'TemperaturaInicial', 'Expansion'});
+disp(tabla)
+
+% Graficar
+figure;
+plot(deltat, Expan, '-o', 'LineWidth', 2, 'Color', 'b');
+grid on;
+xlabel('Temperatura Inicial (°C)');
+ylabel('Expansión Volumétrica (m³)');
+title('Expansión térmica vs Temperatura Inicial tubo 1');
+
+%% tubo 2
+R2 = 0.026;
+r2 = 0.022;
+h2 = 0.78;
+
+v2 = pi * h2 * (R2^2 - r2^2); % Volumen
+
+Expan2 = beta * v2 * (T - deltat); % Expansión para cada temperatura inicial
+
+% Mostrar resultados en tabla
+tabla2 = table(deltat', Expan2', 'VariableNames', {'TemperaturaInicial', 'Expansion'});
+disp(tabla2)
+
+% Graficar
+figure;
+plot(deltat, Expan2, '-o', 'LineWidth', 2, 'Color', 'r');
+grid on;
+xlabel('Temperatura Inicial (°C)');
+ylabel('Expansión Volumétrica (m³)');
+title('Expansión térmica vs Temperatura Inicial tubo 2');
