@@ -2,9 +2,9 @@ a = 260;
 b = 430;
 angulos_plot = [];
 cy_plot = [];
-
+cx_plot = [];
 % Vector de ángulos desde 90 a -90, por ejemplo de 1 en 1 grado
-for angulo = 89:-1:-89
+for angulo = 0
     ca1 = a * cosd(angulo);
     co1 = a * sind(angulo);
 
@@ -29,24 +29,24 @@ syms  by b2y cy ay cx b2x bx ax
 
 
 
-EC1= F - by + ay == 0;
+EC1= -F + by - ay == 0;
 S_EC1 = solve(EC1,by);
 
-EC2= ax - bx == 0;
+EC2= -ax + bx == 0;
 S_EC2 = solve(EC2,ax);
 
-EC3= -by*(l2)*sind(theta)-bx*(l2)*cosd(theta) +F*l1*sind(theta)==0;
+EC3= -by*(l2)*cosd(theta)-bx*(l2)*sind(theta) +F*l1*sind(theta)==0;
 S_EC3 = vpa(solve(EC3,bx));
 
 
 
-EC4= -b2y+cy==0;
+EC4= b2y-cy==0;
 S_EC4 = vpa(solve(EC4,cy));
 
-EC5= b2x+cx==0;
+EC5= -b2x-cx==0;
 S_EC5 = vpa(solve(EC5,cx));
 
-EC6= cy*h*cosd(phi)+cx*h*sind(phi) ==0;
+EC6= -cy*h*cosd(phi)-cx*h*sind(phi) ==0;
 S_EC6 = vpa(solve(EC6,cy));
 
 EC7 = S_EC1 == subs(S_EC6, cx, S_EC2);
@@ -71,17 +71,23 @@ EC12= vpa(subs(S_EC3,by,EC11));
 
 angulos_plot(end+1) = angulo;
 cy_plot(end+1) = double(EC11);  % si quieres by
+cx_plot(end+1) = double(EC12);  % si quieres by
+magni = vpa(sqrt((EC11)^2 + (EC12)^2) );
 
-
-fprintf('Ángulo: %2d°, Lambda: %6.2f°, cy: %8.3f N\n', angulo, lambda, double(EC11));
+fprintf('Ángulo: %2d°, Lambda: %6.2f°, cy: %8.3fN , cx: %8.3fN, magni: %8.3fN\n', angulo, lambda, double(EC11), double(EC12), magni);
     else
         fprintf('Ángulo: %4d°, Error: asin indefinido (ca2/b = %.2f)\n', angulo, ca2 / b);
     end
 end
 figure;
-plot(angulos_plot, cy_plot, 'b.-');
+plot(angulos_plot, cy_plot, 'r.-');
 xlabel('Ángulo (°)');
-ylabel('by (N)'); % o 'cy (N)' si usaste S_EC6
-title('Ángulo vs. cy');
+ylabel('cy y cx (N)'); % o 'cy (N)' si usaste S_EC6
+title('Ángulo vs. cy y cx'); 
 grid on;
+hold on
+plot(angulos_plot, cx_plot, 'b.-');
+xlabel('Ángulo (°)');
+ylabel('by (N)'); % o 'cx (N)' 
+legend({'cy','cx'})
 
